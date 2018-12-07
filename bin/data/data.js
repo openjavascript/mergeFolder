@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.Q_EXAMPLE = undefined;
+exports.Q_CONFIRM = exports.Q_MULTI_THREAD = exports.Q_TARGER_FOLDER = exports.Q_SHOW_LOG = exports.Q_SUBFOLDER_LEVEL = exports.Q_SUBFOLDER = exports.Q_EXAMPLE = undefined;
 
 var _constant = require("./constant.js");
 
@@ -11,6 +11,51 @@ var Q_EXAMPLE = exports.Q_EXAMPLE = [{
     "name": "example",
     "type": "input",
     "message": "示例输入"
+}];
+
+var Q_SUBFOLDER = exports.Q_SUBFOLDER = [{
+    "name": "subfolder",
+    "type": "input",
+    "message": "请输入要合并子目录的文件夹，无需更改请按回车",
+    "default": "subfolder"
+}];
+
+var Q_SUBFOLDER_LEVEL = exports.Q_SUBFOLDER_LEVEL = [{
+    "name": "subfolder_level",
+    "type": "input",
+    "message": "请输入要合并文件夹的层次，无需更改请按回车",
+    "default": 1
+}];
+
+var Q_SHOW_LOG = exports.Q_SHOW_LOG = [{
+    "name": "show_log",
+    "type": "list",
+    "message": "显示日志(log)?",
+    "choices": ['yes', 'no'],
+    "default": 'yes'
+}];
+
+var Q_TARGER_FOLDER = exports.Q_TARGER_FOLDER = [{
+    "name": "target_folder",
+    "type": "input",
+    "message": "请输入要复制到那个文件夹",
+    "default": "./map_tiles"
+}];
+
+var Q_MULTI_THREAD = exports.Q_MULTI_THREAD = [{
+    "name": "multi_thread",
+    "type": "list",
+    "message": "是否启用多线程",
+    "choices": ['yes', 'no'],
+    "default": 'no'
+}];
+
+var Q_CONFIRM = exports.Q_CONFIRM = [{
+    "name": "confirm",
+    "type": "list",
+    "message": "开始合并文件？",
+    "choices": ['yes', 'no'],
+    "default": 'yes'
 }];
 
 /*

@@ -11,6 +11,71 @@ export const Q_EXAMPLE = [
     }
 ];
 
+export const Q_SUBFOLDER = [
+    { 
+        "name": "subfolder"
+        , "type": "input"
+        , "message": "请输入要合并子目录的文件夹，无需更改请按回车"
+        , "default": "subfolder"
+    }
+];
+
+
+export const Q_SUBFOLDER_LEVEL = [
+    { 
+        "name": "subfolder_level"
+        , "type": "input"
+        , "message": "请输入要合并文件夹的层次，无需更改请按回车"
+        , "default": 1
+    }
+];
+
+export const Q_SHOW_LOG = [
+    { 
+        "name": "show_log"
+        , "type": "list"
+        , "message": "显示日志(log)?"
+        , "choices": [ 'yes', 'no' ]
+        , "default": 'yes'
+    }
+];
+
+export const Q_TARGER_FOLDER = [
+    { 
+        "name": "target_folder"
+        , "type": "input"
+        , "message": "请输入要复制到那个文件夹"
+        , "default": "./map_tiles"
+    }
+];
+
+export const Q_MULTI_THREAD = [
+    { 
+        "name": "multi_thread"
+        , "type": "list"
+        , "message": "是否启用多线程"
+        , "choices": [ 'yes', 'no' ]
+        , "default": 'no'
+    }
+];
+
+export const Q_CONFIRM = [
+    { 
+        "name": "confirm"
+        , "type": "list"
+        , "message": "开始合并文件？"
+        , "choices": [ 'yes', 'no' ]
+        , "default": 'yes'
+    }
+];
+
+
+
+
+
+
+
+
 
 /*
 export const Q_INIT_PUBLIC = [

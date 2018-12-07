@@ -57,22 +57,57 @@ export default class App {
 
         console.log();
 
-        this.getExample().then( ()=> {
-            if( this.ip ){
-                console.log();
-                return this.getPort();
-            }else{
-                return new Promise( function( resolve ){
-                    setTimeout( resolve, 1);
-                });
-            }
+        this.getSubFolder().then( ()=> {
+            return new Promise( function( resolve ){
+                setTimeout( resolve, 1);
+            });
+        }).then( () => {
+            return this.getSubFolderLevel();
+        }).then( () => {
+            return this.getTargetFolder();
+        }).then( () => {
+            return this.getShowLog();
+        }).then( () => {
+            return this.getMultiThread();
         }).then( () => {
             return new Promise( function( resolve ){
                 setTimeout( resolve, 1);
             });
+        }).then( () => {
+            return this.getConfirm();
         }).then( ()=>{
             this.project = new ProjectExample( this );
         });
+    }
+
+    async getConfirm(){
+        let data = await this.prompt( DATA.Q_CONFIRM );
+        this.confirm = data.confirm;
+    }
+
+    async getMultiThread(){
+        let data = await this.prompt( DATA.Q_MULTI_THREAD );
+        this.multi_thread = data.multi_thread;
+    }
+
+    async getTargetFolder(){
+        let data = await this.prompt( DATA.Q_TARGER_FOLDER );
+        this.target_folder = data.target_folder;
+    }
+
+    async getShowLog(){
+        let data = await this.prompt( DATA.Q_SHOW_LOG );
+        this.subfolder = data.subfolder;
+    }
+
+    async getSubFolder(){
+        let data = await this.prompt( DATA.Q_SUBFOLDER );
+        this.show_log = data.show_log;
+    }
+
+    async getSubFolderLevel(){
+        let data = await this.prompt( DATA.Q_SUBFOLDER_LEVEL );
+        this.subfolder_level = data.subfolder_level;
     }
 
     async getExample(){

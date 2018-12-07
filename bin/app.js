@@ -96,22 +96,63 @@ var App = function () {
 
             console.log();
 
-            this.getExample().then(function () {
-                if (_this.ip) {
-                    console.log();
-                    return _this.getPort();
-                } else {
-                    return new Promise(function (resolve) {
-                        setTimeout(resolve, 1);
-                    });
-                }
+            this.getSubFolder().then(function () {
+                return new Promise(function (resolve) {
+                    setTimeout(resolve, 1);
+                });
+            }).then(function () {
+                return _this.getSubFolderLevel();
+            }).then(function () {
+                return _this.getTargetFolder();
+            }).then(function () {
+                return _this.getShowLog();
+            }).then(function () {
+                return _this.getMultiThread();
             }).then(function () {
                 return new Promise(function (resolve) {
                     setTimeout(resolve, 1);
                 });
             }).then(function () {
+                return _this.getConfirm();
+            }).then(function () {
                 _this.project = new _ProjectExample2.default(_this);
             });
+        }
+    }, {
+        key: "getConfirm",
+        value: async function getConfirm() {
+            var data = await this.prompt(DATA.Q_CONFIRM);
+            this.confirm = data.confirm;
+        }
+    }, {
+        key: "getMultiThread",
+        value: async function getMultiThread() {
+            var data = await this.prompt(DATA.Q_MULTI_THREAD);
+            this.multi_thread = data.multi_thread;
+        }
+    }, {
+        key: "getTargetFolder",
+        value: async function getTargetFolder() {
+            var data = await this.prompt(DATA.Q_TARGER_FOLDER);
+            this.target_folder = data.target_folder;
+        }
+    }, {
+        key: "getShowLog",
+        value: async function getShowLog() {
+            var data = await this.prompt(DATA.Q_SHOW_LOG);
+            this.subfolder = data.subfolder;
+        }
+    }, {
+        key: "getSubFolder",
+        value: async function getSubFolder() {
+            var data = await this.prompt(DATA.Q_SUBFOLDER);
+            this.show_log = data.show_log;
+        }
+    }, {
+        key: "getSubFolderLevel",
+        value: async function getSubFolderLevel() {
+            var data = await this.prompt(DATA.Q_SUBFOLDER_LEVEL);
+            this.subfolder_level = data.subfolder_level;
         }
     }, {
         key: "getExample",
