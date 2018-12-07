@@ -93,6 +93,8 @@ export default class App {
             console.log();
             return this.getConfirm();
         }).then( ()=>{
+            if( this.confirm == 'no' ) return;
+            console.log( 'process merge', Date.now() );
             this.project = new ProjectExample( this );
         });
     }

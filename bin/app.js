@@ -134,6 +134,8 @@ var App = function () {
                 console.log();
                 return _this.getConfirm();
             }).then(function () {
+                if (_this.confirm == 'no') return;
+                console.log('process merge', Date.now());
                 _this.project = new _ProjectExample2.default(_this);
             });
         }

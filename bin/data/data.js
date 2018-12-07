@@ -39,7 +39,7 @@ var Q_TARGER_FOLDER = exports.Q_TARGER_FOLDER = [{
     "name": "target_folder",
     "type": "input",
     "message": "请输入要复制到那个文件夹",
-    "default": "./map_tiles"
+    "default": "./map_tiles/map_tiles"
 }];
 
 var Q_MULTI_THREAD = exports.Q_MULTI_THREAD = [{
