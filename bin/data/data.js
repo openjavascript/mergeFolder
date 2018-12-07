@@ -17,7 +17,7 @@ var Q_SUBFOLDER = exports.Q_SUBFOLDER = [{
     "name": "subfolder",
     "type": "input",
     "message": "请输入要合并子目录的文件夹，无需更改请按回车",
-    "default": "subfolder"
+    "default": "map_tiles_dev"
 }];
 
 var Q_SUBFOLDER_LEVEL = exports.Q_SUBFOLDER_LEVEL = [{
