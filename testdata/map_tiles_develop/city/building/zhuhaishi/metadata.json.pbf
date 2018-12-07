@@ -1,0 +1,13 @@
+{
+    "name": "building", 
+    "generator": "tippecanoe v1.31.6", 
+    "format": "pbf", 
+    "description": "building", 
+    "json": "{\"vector_layers\": [ { \"id\": \"building\", \"description\": \"\", \"minzoom\": 10, \"maxzoom\": 18, \"fields\": {\"ColorIdx\": \"Number\", \"Height\": \"Number\", \"Name\": \"String\"} } ],\"tilestats\": {\"layerCount\": 1,\"layers\": [{\"layer\": \"building\",\"count\": 8438,\"geometry\": \"Polygon\",\"attributeCount\": 3,\"attributes\": [{\"attribute\": \"ColorIdx\",\"count\": 2,\"type\": \"number\",\"values\": [0,1],\"min\": 0,\"max\": 1},{\"attribute\": \"Height\",\"count\": 68,\"type\": \"number\",\"values\": [10,101,102,103,104,106,107,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,3,30,31,32,33,34,35,36,37,38,39,4,40,41,42,43,44,45,46,47,48,49,5,50,51,52,53,54,56,57,6,60,7,73,75,76,77,78,8,82,9,99],\"min\": 3,\"max\": 107},{\"attribute\": \"Name\",\"count\": 1,\"type\": \"string\",\"values\": [\"\"]}]}]}}", 
+    "bounds": "113.503216,22.332169,113.621382,22.407929", 
+    "minzoom": "10", 
+    "version": "2", 
+    "maxzoom": "18", 
+    "type": "overlay", 
+    "center": "113.564987,22.369761,18"
+}
