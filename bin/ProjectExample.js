@@ -51,7 +51,7 @@ var ProjectExample = function (_Project) {
     _createClass(ProjectExample, [{
         key: "init",
         value: function init() {
-            console.log('ProjectExample', Date.now());
+            //console.log( 'ProjectExample', Date.now() )
             this.initMethod();
         }
     }]);

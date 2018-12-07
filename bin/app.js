@@ -101,18 +101,37 @@ var App = function () {
                     setTimeout(resolve, 1);
                 });
             }).then(function () {
+                console.log();
                 return _this.getSubFolderLevel();
             }).then(function () {
+                console.log();
                 return _this.getTargetFolder();
             }).then(function () {
+                console.log();
                 return _this.getShowLog();
             }).then(function () {
+                console.log();
                 return _this.getMultiThread();
             }).then(function () {
+                console.log();
+
+                var space = '  ';
+
+                _this.copyPath = _path2.default.resolve(_this.projectRoot, _this.subfolder);
+                _this.targetPath = _path2.default.resolve(_this.projectRoot, _this.target_folder);
+
+                console.log(space + "\u6E90 \u76EE \u5F55: " + _this.copyPath);
+                console.log(space + "\u5408\u5E76\u5C42\u7EA7 : " + _this.subfolder_level);
+                console.log(space + "\u76EE\u6807\u76EE\u5F55: " + _this.targetPath);
+                console.log();
+                console.log(space + "\u663E\u793A\u65E5\u5FD7: " + _this.show_log);
+                console.log(space + "\u591A \u7EBF \u7A0B: " + _this.multi_thread);
+
                 return new Promise(function (resolve) {
                     setTimeout(resolve, 1);
                 });
             }).then(function () {
+                console.log();
                 return _this.getConfirm();
             }).then(function () {
                 _this.project = new _ProjectExample2.default(_this);
@@ -140,13 +159,13 @@ var App = function () {
         key: "getShowLog",
         value: async function getShowLog() {
             var data = await this.prompt(DATA.Q_SHOW_LOG);
-            this.subfolder = data.subfolder;
+            this.show_log = data.show_log;
         }
     }, {
         key: "getSubFolder",
         value: async function getSubFolder() {
             var data = await this.prompt(DATA.Q_SUBFOLDER);
-            this.show_log = data.show_log;
+            this.subfolder = data.subfolder;
         }
     }, {
         key: "getSubFolderLevel",
@@ -180,8 +199,10 @@ var App = function () {
             console.log(info('     方法2: 使用说明'));
             console.log();
 
-            console.log(this.appRoot);
-            console.log(this.projectRoot);
+            /*
+            console.log( this.appRoot );
+            console.log( this.projectRoot );
+            */
         }
     }]);
 

@@ -30,7 +30,7 @@ export default class Project {
     }
 
     initMethod() {
-        console.log( 'initMethod', Date.now() );
+        //console.log( 'initMethod', Date.now() );
     }
 
 }

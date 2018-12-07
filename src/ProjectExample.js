@@ -19,7 +19,7 @@ export default class ProjectExample extends Project {
     }
 
     init() {
-        console.log( 'ProjectExample', Date.now() )
+        //console.log( 'ProjectExample', Date.now() )
         this.initMethod();
     }
 }

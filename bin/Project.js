@@ -68,7 +68,7 @@ var Project = function () {
     }, {
         key: "initMethod",
         value: function initMethod() {
-            console.log('initMethod', Date.now());
+            //console.log( 'initMethod', Date.now() );
         }
     }]);
 

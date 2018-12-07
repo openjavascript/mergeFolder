@@ -20,8 +20,6 @@ import * as DATA from './data/data.js';
 
 import ProjectExample from './ProjectExample.js';
 
-
-
 export default class App {
     constructor( appRoot, projectRoot, packJSON ) {
 
@@ -62,18 +60,37 @@ export default class App {
                 setTimeout( resolve, 1);
             });
         }).then( () => {
+            console.log();
             return this.getSubFolderLevel();
         }).then( () => {
+            console.log();
             return this.getTargetFolder();
         }).then( () => {
+            console.log();
             return this.getShowLog();
         }).then( () => {
+            console.log();
             return this.getMultiThread();
         }).then( () => {
+            console.log();
+
+            let space = '  '
+
+            this.copyPath = path.resolve( this.projectRoot, this.subfolder );
+            this.targetPath = path.resolve( this.projectRoot, this.target_folder );
+
+            console.log( `${space}源 目 录: ${this.copyPath}` );
+            console.log( `${space}合并层级 : ${this.subfolder_level}` );
+            console.log( `${space}目标目录: ${this.targetPath}` );
+            console.log()
+            console.log( `${space}显示日志: ${this.show_log}` );
+            console.log( `${space}多 线 程: ${this.multi_thread}` );
+
             return new Promise( function( resolve ){
                 setTimeout( resolve, 1);
             });
         }).then( () => {
+            console.log();
             return this.getConfirm();
         }).then( ()=>{
             this.project = new ProjectExample( this );
@@ -97,12 +114,12 @@ export default class App {
 
     async getShowLog(){
         let data = await this.prompt( DATA.Q_SHOW_LOG );
-        this.subfolder = data.subfolder;
+        this.show_log = data.show_log;
     }
 
     async getSubFolder(){
         let data = await this.prompt( DATA.Q_SUBFOLDER );
-        this.show_log = data.show_log;
+        this.subfolder = data.subfolder;
     }
 
     async getSubFolderLevel(){
@@ -139,8 +156,10 @@ export default class App {
         console.log( info( '     方法2: 使用说明' ) );
         console.log();
 
+        /*
         console.log( this.appRoot );
         console.log( this.projectRoot );
+        */
     }
 
 }
