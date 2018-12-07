@@ -24,5 +24,31 @@ return;
 */
 
 require('babel-core/register');
-var init = require('./app').init;
-init(APP_ROOT, PROJECT_ROOT, packJSON);
+/*
+const init = require( './app' ).init;
+init( APP_ROOT, PROJECT_ROOT, packJSON );
+*/
+
+var _progress = require('cli-progress');
+var _colors = require('colors');
+
+var bar = new _progress.Bar({
+    format: 'CLI Progress |' + _colors.cyan('{bar}') + '| {percentage}% || {value}/{total} Chunks || Speed: {speed}',
+    barCompleteChar: '\u2588',
+    barIncompleteChar: '\u2591',
+    hideCursor: true
+});
+
+bar.start(200, 0, {
+    speed: "N/A"
+});
+
+bar.update(5, {
+    speed: '125'
+});
+
+bar.update(50, {
+    speed: '125'
+});
+
+//bar.stop();
