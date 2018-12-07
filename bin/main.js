@@ -53,13 +53,25 @@ bar.update(50, {
 
 //bar.stop();
 
-var glob = require("glob");
+var Glob = require("glob").Glob;
 
-// options is optional
-glob(PROJECT_ROOT + '/**/*.pbf', {}, function (er, files) {
-    // files is an array of filenames.
-    // If the `nonull` option is set, and nothing
-    // was found, then files is ["**/*.js"]
-    // er is an error object or null.
-    console.log(er, files);
+var mg = new Glob('subfolder/**/*.pbf', {}, function (er, files) {});
+
+mg.on('match', function (arg) {
+    console.log(Date.now(), arg);
+});
+
+mg.on('end', function (arg) {
+    //console.log( Date.now(), arg )
+    console.log(Date.now(), 'ended');
+});
+
+mg.on('error', function (arg) {
+    //console.log( Date.now(), arg )
+    console.log(Date.now(), 'error');
+});
+
+mg.on('abort', function (arg) {
+    //console.log( Date.now(), arg )
+    console.log(Date.now(), 'abort');
 });
