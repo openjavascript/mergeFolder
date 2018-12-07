@@ -103,6 +103,9 @@ export default class App {
         console.log();
         console.log( info( '     方法2: 使用说明' ) );
         console.log();
+
+        console.log( this.appRoot );
+        console.log( this.projectRoot );
     }
 
 }
