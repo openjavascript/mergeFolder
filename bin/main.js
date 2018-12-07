@@ -29,14 +29,14 @@ const init = require( './app' ).init;
 init( APP_ROOT, PROJECT_ROOT, packJSON );
 */
 
-var _progress = require('cli-progress');
+/*const _progress = require('cli-progress');
 var _colors = require('colors');
 
-var bar = new _progress.Bar({
-    format: 'CLI Progress |' + _colors.cyan('{bar}') + '| {percentage}% || {value}/{total} Chunks || Speed: {speed}',
-    barCompleteChar: '\u2588',
-    barIncompleteChar: '\u2591',
-    hideCursor: true
+const bar = new _progress.Bar({
+    format: 'CLI Progress |' + _colors.cyan('{bar}') + '| {percentage}% || {value}/{total} Chunks || Speed: {speed}'
+    , barCompleteChar: '\u2588'
+    , barIncompleteChar: '\u2591'
+    , hideCursor: true
 });
 
 bar.start(200, 0, {
@@ -49,6 +49,17 @@ bar.update(5, {
 
 bar.update(50, {
     speed: '125'
-});
+});*/
 
 //bar.stop();
+
+var glob = require("glob");
+
+// options is optional
+glob(PROJECT_ROOT + '/**/*.pbf', {}, function (er, files) {
+    // files is an array of filenames.
+    // If the `nonull` option is set, and nothing
+    // was found, then files is ["**/*.js"]
+    // er is an error object or null.
+    console.log(er, files);
+});

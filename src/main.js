@@ -28,7 +28,7 @@ const init = require( './app' ).init;
 init( APP_ROOT, PROJECT_ROOT, packJSON );
 */
 
-const _progress = require('cli-progress');
+/*const _progress = require('cli-progress');
 var _colors = require('colors');
 
 const bar = new _progress.Bar({
@@ -48,7 +48,18 @@ bar.update(5, {
 
 bar.update(50, {
     speed: '125'
-});
+});*/
 
 
 //bar.stop();
+
+var glob = require("glob")
+
+// options is optional
+glob( `${PROJECT_ROOT}/**/*.pbf`, {}, function (er, files) {
+  // files is an array of filenames.
+  // If the `nonull` option is set, and nothing
+  // was found, then files is ["**/*.js"]
+  // er is an error object or null.
+    console.log( er, files );
+})
