@@ -87,9 +87,11 @@ export default class App {
             console.log( `${space}目标目录: ${this.targetPath}` );
             console.log( `${space}合并层级: ${this.subfolder_level}` );
             //console.log( `${space}文件过滤: ${this.re_pattern}` );
+            /*
             console.log()
             console.log( `${space}显示日志: ${this.show_log}` );
             console.log( `${space}多 线 程: ${this.multi_thread}` );
+            */
 
             return new Promise( function( resolve ){
                 setTimeout( resolve, 1);

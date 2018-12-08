@@ -26,7 +26,7 @@ export const Q_SUBFOLDER_LEVEL = [
         "name": "subfolder_level"
         , "type": "input"
         , "message": "请输入要合并文件夹的层次，无需更改请按回车"
-        , "default": 2
+        , "default": 1
     }
 ];
 

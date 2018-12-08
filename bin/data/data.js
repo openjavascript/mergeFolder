@@ -24,7 +24,7 @@ var Q_SUBFOLDER_LEVEL = exports.Q_SUBFOLDER_LEVEL = [{
     "name": "subfolder_level",
     "type": "input",
     "message": "请输入要合并文件夹的层次，无需更改请按回车",
-    "default": 2
+    "default": 1
 }];
 
 var Q_SHOW_LOG = exports.Q_SHOW_LOG = [{

@@ -128,9 +128,11 @@ var App = function () {
                 console.log(space + "\u76EE\u6807\u76EE\u5F55: " + _this.targetPath);
                 console.log(space + "\u5408\u5E76\u5C42\u7EA7: " + _this.subfolder_level);
                 //console.log( `${space}文件过滤: ${this.re_pattern}` );
-                console.log();
-                console.log(space + "\u663E\u793A\u65E5\u5FD7: " + _this.show_log);
-                console.log(space + "\u591A \u7EBF \u7A0B: " + _this.multi_thread);
+                /*
+                console.log()
+                console.log( `${space}显示日志: ${this.show_log}` );
+                console.log( `${space}多 线 程: ${this.multi_thread}` );
+                */
 
                 return new Promise(function (resolve) {
                     setTimeout(resolve, 1);
