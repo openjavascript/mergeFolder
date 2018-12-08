@@ -57,9 +57,31 @@ export default class ProjectExample extends Project {
                             , stats.isSymbolicLink()
                         );
 
+                        let sourcePath = tmpCur.slice();
+                        sourcePath.unshift( this.app.copyPath );
+                        sourcePath = path.resolve( sourcePath.join('/') );
+
                         let targetPath = tmpCur.slice();
                         targetPath.unshift( this.app.targetPath );
+                        if( stats.isDirectory() ){
+                            targetPath.pop();
+                        }
+
+                        targetPath = path.resolve( targetPath.join('/') );
+
+                        let mkdir = targetPath;
+
+                        if( stats.isFile() ){
+                            mkdir = path.resolve( mkdir, '..' );
+                        }
+
+                        console.log( '       ', sourcePath );
                         console.log( targetPath );
+                        console.log( mkdir );
+
+                        fs.exists( mkdir, ( exists ) => {
+                            console.log( mkdir, exists );
+                        });
 
                         return;
                     }

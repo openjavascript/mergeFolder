@@ -93,9 +93,31 @@ var ProjectExample = function (_Project) {
                             //tmpPath
                             tmpCur, stats.isDirectory(), stats.isFile(), stats.isSymbolicLink());
 
+                            var sourcePath = tmpCur.slice();
+                            sourcePath.unshift(_this2.app.copyPath);
+                            sourcePath = _path2.default.resolve(sourcePath.join('/'));
+
                             var targetPath = tmpCur.slice();
                             targetPath.unshift(_this2.app.targetPath);
+                            if (stats.isDirectory()) {
+                                targetPath.pop();
+                            }
+
+                            targetPath = _path2.default.resolve(targetPath.join('/'));
+
+                            var mkdir = targetPath;
+
+                            if (stats.isFile()) {
+                                mkdir = _path2.default.resolve(mkdir, '..');
+                            }
+
+                            console.log('       ', sourcePath);
                             console.log(targetPath);
+                            console.log(mkdir);
+
+                            _fs2.default.exists(mkdir, function (exists) {
+                                console.log(mkdir, exists);
+                            });
 
                             return;
                         }
