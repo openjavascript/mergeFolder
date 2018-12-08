@@ -11,6 +11,16 @@ export const Q_EXAMPLE = [
     }
 ];
 
+export const Q_CONFIG_FILE = [
+    { 
+        "name": "config_file"
+        , "type": "input"
+        , "message": "请输入配置文件路径"
+        , "default": "mergefolder.json"
+    }
+];
+
+
 export const Q_SUBFOLDER = [
     { 
         "name": "subfolder"

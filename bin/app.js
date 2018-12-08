@@ -8,9 +8,9 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 exports.init = init;
 
-var _fs = require("fs");
+var _fsExtra = require("fs-extra");
 
-var _fs2 = _interopRequireDefault(_fs);
+var _fsExtra2 = _interopRequireDefault(_fsExtra);
 
 var _path = require("path");
 
@@ -70,8 +70,6 @@ var App = function () {
         console.log(['appRoot: ' + this.appRoot, 'projectRoot: ' + this.projectRoot].join("\n"));
 
         this.init();
-
-        console.log();
     }
 
     _createClass(App, [{
@@ -94,17 +92,43 @@ var App = function () {
             ].join('&&') );
             */
 
-            console.log();
-
             new Promise(function (resolve) {
                 setTimeout(resolve, 1);
             }).then(function () {
+                _this.readConfigJson(DATA.Q_CONFIG_FILE[0].default);
+
+                if (_this.config) {
+                    return new Promise(function (resolve) {
+                        setTimeout(resolve, 1);
+                    });
+                }
+                console.log();
+                return _this.getConfigFile();
+            }).then(function () {
+                if (_this.config && _this.config.sourceDir) {
+                    _this.subfolder = _this.config.sourceDir;
+                    return new Promise(function (resolve) {
+                        setTimeout(resolve, 1);
+                    });
+                }
                 console.log();
                 return _this.getSubFolder();
             }).then(function () {
+                if (_this.config && _this.config.mergeLevel) {
+                    _this.subfolder_level = _this.config.mergeLevel;
+                    return new Promise(function (resolve) {
+                        setTimeout(resolve, 1);
+                    });
+                }
                 console.log();
                 return _this.getSubFolderLevel();
             }).then(function () {
+                if (_this.config && _this.config.outputDir) {
+                    _this.target_folder = _this.config.outputDir;
+                    return new Promise(function (resolve) {
+                        setTimeout(resolve, 1);
+                    });
+                }
                 console.log();
                 return _this.getTargetFolder();
                 /*}).then( () => {
@@ -121,23 +145,30 @@ var App = function () {
 
                 var space = '  ';
 
-                _this.copyPath = _path2.default.resolve(_this.projectRoot, _this.subfolder);
+                _this.sourcePath = _path2.default.resolve(_this.projectRoot, _this.subfolder);
                 _this.targetPath = _path2.default.resolve(_this.projectRoot, _this.target_folder);
 
-                console.log(space + "\u6E90 \u76EE \u5F55: " + _this.copyPath);
-                console.log(space + "\u76EE\u6807\u76EE\u5F55: " + _this.targetPath);
-                console.log(space + "\u5408\u5E76\u5C42\u7EA7: " + _this.subfolder_level);
-                //console.log( `${space}文件过滤: ${this.re_pattern}` );
+                console.log(CONST.SPACE + "\u6E90 \u76EE \u5F55: " + _this.sourcePath);
+                console.log(CONST.SPACE + "\u76EE\u6807\u76EE\u5F55: " + _this.targetPath);
+                console.log(CONST.SPACE + "\u5408\u5E76\u5C42\u7EA7: " + _this.subfolder_level);
+                console.log();
+                //console.log( `${CONST.SPACE}文件过滤: ${this.re_pattern}` );
                 /*
                 console.log()
-                console.log( `${space}显示日志: ${this.show_log}` );
-                console.log( `${space}多 线 程: ${this.multi_thread}` );
+                console.log( `${CONST.SPACE}显示日志: ${this.show_log}` );
+                console.log( `${CONST.SPACE}多 线 程: ${this.multi_thread}` );
                 */
 
                 return new Promise(function (resolve) {
                     setTimeout(resolve, 1);
                 });
             }).then(function () {
+                if (_this.config && _this.config.autostart) {
+                    _this.confirm = 'yes';
+                    return new Promise(function (resolve) {
+                        setTimeout(resolve, 1);
+                    });
+                }
                 console.log();
                 return _this.getConfirm();
             }).then(function () {
@@ -145,6 +176,21 @@ var App = function () {
                 if (_this.confirm == 'no') return;
                 _this.project = new _ProjectExample2.default(_this);
             });
+        }
+    }, {
+        key: "getConfigFile",
+        value: async function getConfigFile() {
+            var data = await this.prompt(DATA.Q_CONFIG_FILE);
+            this.config_file = data.config_file;
+            this.readConfigJson(this.config_file);
+        }
+    }, {
+        key: "readConfigJson",
+        value: function readConfigJson(fileName) {
+            var configFilePath = _path2.default.resolve([this.projectRoot, fileName].join('/'));
+            if (_fsExtra2.default.existsSync(configFilePath)) {
+                this.config = _fsExtra2.default.readJsonSync(configFilePath);
+            }
         }
     }, {
         key: "getRePattern",
@@ -197,7 +243,7 @@ var App = function () {
     }, {
         key: "fileExists",
         value: function fileExists(file) {
-            return _fs2.default.existsSync(file);
+            return _fsExtra2.default.existsSync(file);
         }
     }, {
         key: "welcome",

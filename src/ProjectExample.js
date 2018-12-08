@@ -5,6 +5,9 @@ import path from "path";
 import chalk from 'chalk';
 import clear from 'clear';
 
+import * as CONST from './data/constant.js';
+import * as DATA from './data/data.js';
+
 const _progress = require('cli-progress');
 const _colors = require('colors');
 const mkdirp = require('mkdirp');
@@ -18,6 +21,7 @@ const Glob = require("glob").Glob;
 
 import Project from './Project.js';
 
+
 export default class ProjectExample extends Project {
     constructor( app ){
         super( app );
@@ -30,9 +34,9 @@ export default class ProjectExample extends Project {
 
 
     initEnv(){
-        this.cmd =  path.resolve( `${this.app.copyPath}/${this.app.re_pattern}` )
+        this.cmd =  path.resolve( `${this.app.sourcePath}/${this.app.re_pattern}` )
 
-        this.processPath = path.resolve( this.app.copyPath );
+        this.processPath = path.resolve( this.app.sourcePath );
     }
 
     processCopy(){
@@ -69,7 +73,7 @@ export default class ProjectExample extends Project {
                         */
 
                         let sourcePath = tmpCur.slice();
-                        sourcePath.unshift( this.app.copyPath );
+                        sourcePath.unshift( this.app.sourcePath );
                         sourcePath = path.resolve( sourcePath.join('/') );
 
                         let targetPath = tmpCur.slice();
@@ -125,13 +129,13 @@ export default class ProjectExample extends Project {
 
         let curCopyMs = Date.now();
         fs.copy( source, target, ( err ) => {
-            let passTime = ( ( Date.now() - this.copyMs ) / 1000 ).toFixed();
+            let passTime = ( ( Date.now() - this.copyMs ) / 1000 ).toFixed(3);
                 passTime += '秒';
 
-            let curPassTime = ( ( Date.now() - curCopyMs ) / 1000 ).toFixed();
+            let curPassTime = ( ( Date.now() - curCopyMs ) / 1000 ).toFixed(3);
                 curPassTime += '秒';
 
-            console.log( '本次耗时:', curPassTime, '总耗时:', passTime, target );
+            console.log( CONST.SPACE + '本次耗时:', curPassTime, '总耗时:', passTime, target );
             //console.log( err, target );
         });
     }

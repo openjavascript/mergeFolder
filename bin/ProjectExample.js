@@ -22,9 +22,19 @@ var _clear = require("clear");
 
 var _clear2 = _interopRequireDefault(_clear);
 
+var _constant = require("./data/constant.js");
+
+var CONST = _interopRequireWildcard(_constant);
+
+var _data = require("./data/data.js");
+
+var DATA = _interopRequireWildcard(_data);
+
 var _Project2 = require("./Project.js");
 
 var _Project3 = _interopRequireDefault(_Project2);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -63,9 +73,9 @@ var ProjectExample = function (_Project) {
     }, {
         key: "initEnv",
         value: function initEnv() {
-            this.cmd = _path2.default.resolve(this.app.copyPath + "/" + this.app.re_pattern);
+            this.cmd = _path2.default.resolve(this.app.sourcePath + "/" + this.app.re_pattern);
 
-            this.processPath = _path2.default.resolve(this.app.copyPath);
+            this.processPath = _path2.default.resolve(this.app.sourcePath);
         }
     }, {
         key: "processCopy",
@@ -108,7 +118,7 @@ var ProjectExample = function (_Project) {
                             */
 
                             var sourcePath = tmpCur.slice();
-                            sourcePath.unshift(_this2.app.copyPath);
+                            sourcePath.unshift(_this2.app.sourcePath);
                             sourcePath = _path2.default.resolve(sourcePath.join('/'));
 
                             var targetPath = tmpCur.slice();
@@ -167,13 +177,13 @@ var ProjectExample = function (_Project) {
 
             var curCopyMs = Date.now();
             _fsExtra2.default.copy(source, target, function (err) {
-                var passTime = ((Date.now() - _this3.copyMs) / 1000).toFixed();
+                var passTime = ((Date.now() - _this3.copyMs) / 1000).toFixed(3);
                 passTime += '秒';
 
-                var curPassTime = ((Date.now() - curCopyMs) / 1000).toFixed();
+                var curPassTime = ((Date.now() - curCopyMs) / 1000).toFixed(3);
                 curPassTime += '秒';
 
-                console.log('本次耗时:', curPassTime, '总耗时:', passTime, target);
+                console.log(CONST.SPACE + '本次耗时:', curPassTime, '总耗时:', passTime, target);
                 //console.log( err, target );
             });
         }

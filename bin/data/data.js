@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.Q_CONFIRM = exports.Q_MULTI_THREAD = exports.Q_RE_PATTERN = exports.Q_TARGER_FOLDER = exports.Q_SHOW_LOG = exports.Q_SUBFOLDER_LEVEL = exports.Q_SUBFOLDER = exports.Q_EXAMPLE = undefined;
+exports.Q_CONFIRM = exports.Q_MULTI_THREAD = exports.Q_RE_PATTERN = exports.Q_TARGER_FOLDER = exports.Q_SHOW_LOG = exports.Q_SUBFOLDER_LEVEL = exports.Q_SUBFOLDER = exports.Q_CONFIG_FILE = exports.Q_EXAMPLE = undefined;
 
 var _constant = require("./constant.js");
 
@@ -11,6 +11,13 @@ var Q_EXAMPLE = exports.Q_EXAMPLE = [{
     "name": "example",
     "type": "input",
     "message": "示例输入"
+}];
+
+var Q_CONFIG_FILE = exports.Q_CONFIG_FILE = [{
+    "name": "config_file",
+    "type": "input",
+    "message": "请输入配置文件路径",
+    "default": "mergefolder.json"
 }];
 
 var Q_SUBFOLDER = exports.Q_SUBFOLDER = [{
