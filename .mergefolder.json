@@ -1,0 +1,6 @@
+{
+    "sourceDir": "./subfolder"
+    , "outputDir": "./map_tiles/default"
+    , "mergeLevel": 2
+    , "autostart": true
+}

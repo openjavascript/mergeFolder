@@ -5,3 +5,4 @@ testdata/map_tiles
 testdata/output
 testdata/map_tiles_develop/map_tiles
 testdata/map_tiles_develop/output
+mergefolder.json
