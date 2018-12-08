@@ -24,17 +24,26 @@ export default class ProjectExample extends Project {
     }
 
     init() {
-        //console.log( 'ProjectExample', Date.now() )
         this.initEnv();
-        //this.initProgress();
-        this.calcMatchFile();
+        this.processCopy();
     }
+
 
     initEnv(){
         this.cmd =  path.resolve( `${this.app.copyPath}/${this.app.re_pattern}` )
 
         this.processPath = path.resolve( this.app.copyPath );
     }
+
+    processCopy(){
+        //this.files = [];
+        this.count = 0;
+        this.processFile = 0;
+
+        this.copyMs = Date.now();
+        this.traverse( this.processPath, [] );
+    }
+
 
     traverse( dir, cur = [], level = 1 ){
         if( level > this.app.subfolder_level ) return;
@@ -49,7 +58,7 @@ export default class ProjectExample extends Project {
                     tmpCur.push( itemName );
 
                     if( level === this.app.subfolder_level ){
-
+                        /*
                         console.log( 
                             //tmpPath
                             tmpCur
@@ -57,6 +66,7 @@ export default class ProjectExample extends Project {
                             , stats.isFile()
                             , stats.isSymbolicLink()
                         );
+                        */
 
                         let sourcePath = tmpCur.slice();
                         sourcePath.unshift( this.app.copyPath );
@@ -113,96 +123,16 @@ export default class ProjectExample extends Project {
         console.log( 'target', target );
         */
 
+        let curCopyMs = Date.now();
         fs.copy( source, target, ( err ) => {
-            console.log( target );
+            let passTime = ( ( Date.now() - this.copyMs ) / 1000 ).toFixed();
+                passTime += '秒';
+
+            let curPassTime = ( ( Date.now() - curCopyMs ) / 1000 ).toFixed();
+                curPassTime += '秒';
+
+            console.log( '本次耗时:', curPassTime, '总耗时:', passTime, target );
             //console.log( err, target );
         });
-    }
-
-    calcMatchFile(){
-        //this.files = [];
-        this.count = 0;
-        this.processFile = 0;
-
-        let p = this;
-
-        //this.traverse( this.processPath, [ this.app.subfolder ] );
-        this.traverse( this.processPath, [] );
-
-        //console.log( this.cmd );
-        //return;
-        /*
-        */
-
-        //console.time( 'calc-time' );
-        this.calcMs = Date.now();
-
-        /*this.matcher = new Glob( this.cmd, {
-            //symlinks: this.app.re_pattern
-        });*/
-
-        // /home/suches/udocs/git/mergefolder/testdata/map_tiles_develop/subfolder/building/building/zhuhai/15/26726/14294.pbf
-
-        //return;
-
-        /*this.matcher.on( 'match', ( filePath ) => {
-            //this.files.push( filePath );
-            this.count++;
-            //console.log( this.count );
-            //console.timeLog( 'calc-time', this.count );
-            //console.log( Date.now(), filePath )
-
-            this.calcCur = ( Date.now() - this.calcMs ) / 1000;
-
-            console.log( '匹配的文件数量:', this.count, '已处理的文件数量:', this.processFile, '耗时:', this.calcCur, '秒' );
-            console.log( filePath );
-        });
-
-        this.matcher.on( 'end', ( filePath )=>{
-            //console.log( Date.now(), filePath )
-            //console.log( Date.now(), 'ended' )
-            //console.log( this.files );
-            //console.timeEnd( 'calc-time' );
-
-            this.files = filePath;
-
-            console.log( '           this.cmd', path.resolve( this.cmd ) );
-            console.log( '  this.app.copyPath', path.resolve( this.app.copyPath ) );
-            console.log( 'this.app.targetPath', path.resolve( this.app.targetPath ) );
-
-            this.calcMsTotal = Date.now() - this.calcMs;
-        });
-
-        this.matcher.on( 'error', ( filePath )=>{
-            //console.log( Date.now(), filePath )
-            //console.log( Date.now(), 'error' )
-        });
-
-        this.matcher.on( 'abort', ( filePath )=>{
-            //console.log( Date.now(), filePath )
-            //console.log( Date.now(), 'abort' )
-        });*/
-
-    }
-    initProgress(){
-        this.bar = new _progress.Bar({
-            format: '计算文件数量 |' + _colors.cyan('{bar}') + '| {percentage}% || {value}/{total} Chunks || Speed: {speed}'
-            , barCompleteChar: '\u2588'
-            , barIncompleteChar: '\u2591'
-            , hideCursor: true
-        });
-
-        this.bar.start(200, 0, {
-            speed: "N/A"
-        });
-
-        this.bar.update(5, {
-            speed: '125'
-        });
-
-        this.bar.update(50, {
-            speed: '125'
-        });
-
     }
 }

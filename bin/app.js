@@ -96,25 +96,26 @@ var App = function () {
 
             console.log();
 
-            this.getSubFolder().then(function () {
-                return new Promise(function (resolve) {
-                    setTimeout(resolve, 1);
-                });
+            new Promise(function (resolve) {
+                setTimeout(resolve, 1);
+            }).then(function () {
+                console.log();
+                return _this.getSubFolder();
             }).then(function () {
                 console.log();
                 return _this.getSubFolderLevel();
             }).then(function () {
                 console.log();
                 return _this.getTargetFolder();
-            }).then(function () {
-                console.log();
-                return _this.getRePattern();
-            }).then(function () {
-                console.log();
-                return _this.getShowLog();
-            }).then(function () {
-                console.log();
-                return _this.getMultiThread();
+                /*}).then( () => {
+                    console.log();
+                    return this.getRePattern();*/
+                /*}).then( () => {
+                    console.log();
+                    return this.getShowLog();*/
+                /*}).then( () => {
+                    console.log();
+                    return this.getMultiThread();*/
             }).then(function () {
                 console.log();
 
@@ -126,7 +127,7 @@ var App = function () {
                 console.log(space + "\u6E90 \u76EE \u5F55: " + _this.copyPath);
                 console.log(space + "\u76EE\u6807\u76EE\u5F55: " + _this.targetPath);
                 console.log(space + "\u5408\u5E76\u5C42\u7EA7: " + _this.subfolder_level);
-                console.log(space + "\u6587\u4EF6\u8FC7\u6EE4: " + _this.re_pattern);
+                //console.log( `${space}文件过滤: ${this.re_pattern}` );
                 console.log();
                 console.log(space + "\u663E\u793A\u65E5\u5FD7: " + _this.show_log);
                 console.log(space + "\u591A \u7EBF \u7A0B: " + _this.multi_thread);
@@ -140,8 +141,6 @@ var App = function () {
             }).then(function () {
 
                 if (_this.confirm == 'no') return;
-
-                //console.log( 'process merge', Date.now() );
                 _this.project = new _ProjectExample2.default(_this);
             });
         }

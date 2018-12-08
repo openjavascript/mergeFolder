@@ -57,10 +57,8 @@ var ProjectExample = function (_Project) {
     _createClass(ProjectExample, [{
         key: "init",
         value: function init() {
-            //console.log( 'ProjectExample', Date.now() )
             this.initEnv();
-            //this.initProgress();
-            this.calcMatchFile();
+            this.processCopy();
         }
     }, {
         key: "initEnv",
@@ -68,6 +66,16 @@ var ProjectExample = function (_Project) {
             this.cmd = _path2.default.resolve(this.app.copyPath + "/" + this.app.re_pattern);
 
             this.processPath = _path2.default.resolve(this.app.copyPath);
+        }
+    }, {
+        key: "processCopy",
+        value: function processCopy() {
+            //this.files = [];
+            this.count = 0;
+            this.processFile = 0;
+
+            this.copyMs = Date.now();
+            this.traverse(this.processPath, []);
         }
     }, {
         key: "traverse",
@@ -89,10 +97,15 @@ var ProjectExample = function (_Project) {
                         tmpCur.push(itemName);
 
                         if (level === _this2.app.subfolder_level) {
-
-                            console.log(
-                            //tmpPath
-                            tmpCur, stats.isDirectory(), stats.isFile(), stats.isSymbolicLink());
+                            /*
+                            console.log( 
+                                //tmpPath
+                                tmpCur
+                                , stats.isDirectory()
+                                , stats.isFile()
+                                , stats.isSymbolicLink()
+                            );
+                            */
 
                             var sourcePath = tmpCur.slice();
                             sourcePath.unshift(_this2.app.copyPath);
@@ -143,6 +156,8 @@ var ProjectExample = function (_Project) {
     }, {
         key: "copyAction",
         value: function copyAction(source, target) {
+            var _this3 = this;
+
             //source = path.resolve( [ source, '*' ].join('/') )
             /*
             console.log( '\ncopy action' );
@@ -150,89 +165,16 @@ var ProjectExample = function (_Project) {
             console.log( 'target', target );
             */
 
+            var curCopyMs = Date.now();
             _fsExtra2.default.copy(source, target, function (err) {
-                console.log(target);
+                var passTime = ((Date.now() - _this3.copyMs) / 1000).toFixed();
+                passTime += '秒';
+
+                var curPassTime = ((Date.now() - curCopyMs) / 1000).toFixed();
+                curPassTime += '秒';
+
+                console.log('本次耗时:', curPassTime, '总耗时:', passTime, target);
                 //console.log( err, target );
-            });
-        }
-    }, {
-        key: "calcMatchFile",
-        value: function calcMatchFile() {
-            //this.files = [];
-            this.count = 0;
-            this.processFile = 0;
-
-            var p = this;
-
-            //this.traverse( this.processPath, [ this.app.subfolder ] );
-            this.traverse(this.processPath, []);
-
-            //console.log( this.cmd );
-            //return;
-            /*
-            */
-
-            //console.time( 'calc-time' );
-            this.calcMs = Date.now();
-
-            /*this.matcher = new Glob( this.cmd, {
-                //symlinks: this.app.re_pattern
-            });*/
-
-            // /home/suches/udocs/git/mergefolder/testdata/map_tiles_develop/subfolder/building/building/zhuhai/15/26726/14294.pbf
-
-            //return;
-
-            /*this.matcher.on( 'match', ( filePath ) => {
-                //this.files.push( filePath );
-                this.count++;
-                //console.log( this.count );
-                //console.timeLog( 'calc-time', this.count );
-                //console.log( Date.now(), filePath )
-                  this.calcCur = ( Date.now() - this.calcMs ) / 1000;
-                  console.log( '匹配的文件数量:', this.count, '已处理的文件数量:', this.processFile, '耗时:', this.calcCur, '秒' );
-                console.log( filePath );
-            });
-              this.matcher.on( 'end', ( filePath )=>{
-                //console.log( Date.now(), filePath )
-                //console.log( Date.now(), 'ended' )
-                //console.log( this.files );
-                //console.timeEnd( 'calc-time' );
-                  this.files = filePath;
-                  console.log( '           this.cmd', path.resolve( this.cmd ) );
-                console.log( '  this.app.copyPath', path.resolve( this.app.copyPath ) );
-                console.log( 'this.app.targetPath', path.resolve( this.app.targetPath ) );
-                  this.calcMsTotal = Date.now() - this.calcMs;
-            });
-              this.matcher.on( 'error', ( filePath )=>{
-                //console.log( Date.now(), filePath )
-                //console.log( Date.now(), 'error' )
-            });
-              this.matcher.on( 'abort', ( filePath )=>{
-                //console.log( Date.now(), filePath )
-                //console.log( Date.now(), 'abort' )
-            });*/
-        }
-    }, {
-        key: "initProgress",
-        value: function initProgress() {
-            this.bar = new _progress.Bar({
-                format: '计算文件数量 |' + _colors.cyan('{bar}') + '| {percentage}% || {value}/{total} Chunks || Speed: {speed}',
-                barCompleteChar: "\u2588",
-                barIncompleteChar: "\u2591",
-                hideCursor: true
-            });
-
-            this.bar.start(200, 0, {
-                speed: "N/A"
-            });
-
-            this.bar.update(5, {
-                speed: '125'
-            });
-
-            this.bar.update(50, {
-                speed: '125'
             });
         }
     }]);

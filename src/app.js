@@ -55,25 +55,26 @@ export default class App {
 
         console.log();
 
-        this.getSubFolder().then( ()=> {
-            return new Promise( function( resolve ){
-                setTimeout( resolve, 1);
-            });
+        new Promise( function( resolve ){
+            setTimeout( resolve, 1);
+        }).then( () => {
+            console.log();
+            return this.getSubFolder();
         }).then( () => {
             console.log();
             return this.getSubFolderLevel();
         }).then( () => {
             console.log();
             return this.getTargetFolder();
-        }).then( () => {
+        /*}).then( () => {
             console.log();
-            return this.getRePattern();
-        }).then( () => {
+            return this.getRePattern();*/
+        /*}).then( () => {
             console.log();
-            return this.getShowLog();
-        }).then( () => {
+            return this.getShowLog();*/
+        /*}).then( () => {
             console.log();
-            return this.getMultiThread();
+            return this.getMultiThread();*/
         }).then( () => {
             console.log();
 
@@ -85,7 +86,7 @@ export default class App {
             console.log( `${space}源 目 录: ${this.copyPath}` );
             console.log( `${space}目标目录: ${this.targetPath}` );
             console.log( `${space}合并层级: ${this.subfolder_level}` );
-            console.log( `${space}文件过滤: ${this.re_pattern}` );
+            //console.log( `${space}文件过滤: ${this.re_pattern}` );
             console.log()
             console.log( `${space}显示日志: ${this.show_log}` );
             console.log( `${space}多 线 程: ${this.multi_thread}` );
@@ -99,8 +100,6 @@ export default class App {
         }).then( ()=>{
 
             if( this.confirm == 'no' ) return;
-
-            //console.log( 'process merge', Date.now() );
             this.project = new ProjectExample( this );
         });
     }
