@@ -7,6 +7,7 @@ import clear from 'clear';
 
 const _progress = require('cli-progress');
 const _colors = require('colors');
+const mkdirp = require('mkdirp');
 
 const error = chalk.bold.red;
 const warning = chalk.keyword('orange');
@@ -81,6 +82,12 @@ export default class ProjectExample extends Project {
 
                         fs.exists( mkdir, ( exists ) => {
                             console.log( mkdir, exists );
+
+                            if( !exists ){
+                                mkdirp( mkdir, ( err ) => {
+                                });
+                            }else{
+                            }
                         });
 
                         return;

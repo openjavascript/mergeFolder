@@ -36,6 +36,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var _progress = require('cli-progress');
 var _colors = require('colors');
+var mkdirp = require('mkdirp');
 
 var error = _chalk2.default.bold.red;
 var warning = _chalk2.default.keyword('orange');
@@ -117,6 +118,10 @@ var ProjectExample = function (_Project) {
 
                             _fs2.default.exists(mkdir, function (exists) {
                                 console.log(mkdir, exists);
+
+                                if (!exists) {
+                                    mkdirp(mkdir, function (err) {});
+                                } else {}
                             });
 
                             return;
