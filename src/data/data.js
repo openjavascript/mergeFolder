@@ -16,7 +16,7 @@ export const Q_SUBFOLDER = [
         "name": "subfolder"
         , "type": "input"
         , "message": "请输入要合并子目录的文件夹，无需更改请按回车"
-        , "default": "map_tiles_dev"
+        , "default": "subfolder"
     }
 ];
 
@@ -49,6 +49,16 @@ export const Q_TARGER_FOLDER = [
     }
 ];
 
+export const Q_RE_PATTERN = [
+    { 
+        "name": "re_pattern"
+        , "type": "input"
+        , "message": "请输入要合并的文件过滤语法"
+        , "default": "**/*.pbf"
+    }
+];
+
+
 export const Q_MULTI_THREAD = [
     { 
         "name": "multi_thread"
@@ -65,9 +75,10 @@ export const Q_CONFIRM = [
         , "type": "list"
         , "message": "开始合并文件？"
         , "choices": [ 'yes', 'no' ]
-        , "default": 'yes'
+        , "default": 'no'
     }
 ];
+
 
 
 

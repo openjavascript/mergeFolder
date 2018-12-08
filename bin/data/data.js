@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.Q_CONFIRM = exports.Q_MULTI_THREAD = exports.Q_TARGER_FOLDER = exports.Q_SHOW_LOG = exports.Q_SUBFOLDER_LEVEL = exports.Q_SUBFOLDER = exports.Q_EXAMPLE = undefined;
+exports.Q_CONFIRM = exports.Q_MULTI_THREAD = exports.Q_RE_PATTERN = exports.Q_TARGER_FOLDER = exports.Q_SHOW_LOG = exports.Q_SUBFOLDER_LEVEL = exports.Q_SUBFOLDER = exports.Q_EXAMPLE = undefined;
 
 var _constant = require("./constant.js");
 
@@ -17,7 +17,7 @@ var Q_SUBFOLDER = exports.Q_SUBFOLDER = [{
     "name": "subfolder",
     "type": "input",
     "message": "请输入要合并子目录的文件夹，无需更改请按回车",
-    "default": "map_tiles_dev"
+    "default": "subfolder"
 }];
 
 var Q_SUBFOLDER_LEVEL = exports.Q_SUBFOLDER_LEVEL = [{
@@ -42,6 +42,13 @@ var Q_TARGER_FOLDER = exports.Q_TARGER_FOLDER = [{
     "default": "./map_tiles/map_tiles"
 }];
 
+var Q_RE_PATTERN = exports.Q_RE_PATTERN = [{
+    "name": "re_pattern",
+    "type": "input",
+    "message": "请输入要合并的文件过滤语法",
+    "default": "**/*.pbf"
+}];
+
 var Q_MULTI_THREAD = exports.Q_MULTI_THREAD = [{
     "name": "multi_thread",
     "type": "list",
@@ -55,7 +62,7 @@ var Q_CONFIRM = exports.Q_CONFIRM = [{
     "type": "list",
     "message": "开始合并文件？",
     "choices": ['yes', 'no'],
-    "default": 'yes'
+    "default": 'no'
 }];
 
 /*

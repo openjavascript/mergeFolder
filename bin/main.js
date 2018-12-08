@@ -24,10 +24,8 @@ return;
 */
 
 require('babel-core/register');
-/*
-const init = require( './app' ).init;
-init( APP_ROOT, PROJECT_ROOT, packJSON );
-*/
+var init = require('./app').init;
+init(APP_ROOT, PROJECT_ROOT, packJSON);
 
 /*const _progress = require('cli-progress');
 var _colors = require('colors');
@@ -53,25 +51,27 @@ bar.update(50, {
 
 //bar.stop();
 
-var Glob = require("glob").Glob;
 
-var mg = new Glob('subfolder/**/*.pbf', {}, function (er, files) {});
+/*var Glob = require("glob").Glob;*/
 
-mg.on('match', function (arg) {
-    console.log(Date.now(), arg);
-});
+//var mg = new Glob( `subfolder/**/*.pbf`, {}, function (er, files) {
+//});
 
-mg.on('end', function (arg) {
-    //console.log( Date.now(), arg )
-    console.log(Date.now(), 'ended');
-});
+//mg.on( 'match', function( arg ){
+//console.log( Date.now(), arg )
+//});
 
-mg.on('error', function (arg) {
-    //console.log( Date.now(), arg )
-    console.log(Date.now(), 'error');
-});
+//mg.on( 'end', function( arg ){
+////console.log( Date.now(), arg )
+//console.log( Date.now(), 'ended' )
+//});
 
-mg.on('abort', function (arg) {
-    //console.log( Date.now(), arg )
-    console.log(Date.now(), 'abort');
-});
+//mg.on( 'error', function( arg ){
+////console.log( Date.now(), arg )
+//console.log( Date.now(), 'error' )
+//});
+
+//mg.on( 'abort', function( arg ){
+////console.log( Date.now(), arg )
+//console.log( Date.now(), 'abort' )
+//});

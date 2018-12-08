@@ -67,6 +67,9 @@ export default class App {
             return this.getTargetFolder();
         }).then( () => {
             console.log();
+            return this.getRePattern();
+        }).then( () => {
+            console.log();
             return this.getShowLog();
         }).then( () => {
             console.log();
@@ -80,8 +83,9 @@ export default class App {
             this.targetPath = path.resolve( this.projectRoot, this.target_folder );
 
             console.log( `${space}源 目 录: ${this.copyPath}` );
-            console.log( `${space}合并层级 : ${this.subfolder_level}` );
             console.log( `${space}目标目录: ${this.targetPath}` );
+            console.log( `${space}合并层级: ${this.subfolder_level}` );
+            console.log( `${space}文件过滤: ${this.re_pattern}` );
             console.log()
             console.log( `${space}显示日志: ${this.show_log}` );
             console.log( `${space}多 线 程: ${this.multi_thread}` );
@@ -93,10 +97,17 @@ export default class App {
             console.log();
             return this.getConfirm();
         }).then( ()=>{
+
             if( this.confirm == 'no' ) return;
-            console.log( 'process merge', Date.now() );
+
+            //console.log( 'process merge', Date.now() );
             this.project = new ProjectExample( this );
         });
+    }
+
+    async getRePattern(){
+        let data = await this.prompt( DATA.Q_RE_PATTERN );
+        this.re_pattern = data.re_pattern;
     }
 
     async getConfirm(){
