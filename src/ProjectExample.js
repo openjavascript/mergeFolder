@@ -76,19 +76,21 @@ export default class ProjectExample extends Project {
                             mkdir = path.resolve( mkdir, '..' );
                         }
 
+                        /*
                         console.log( '       ', sourcePath );
                         console.log( targetPath );
                         console.log( mkdir );
+                        */
 
                         fs.exists( mkdir, ( exists ) => {
-                            console.log( mkdir, exists );
+                            //console.log( mkdir, exists );
 
                             if( !exists ){
                                 mkdirp( mkdir, ( err ) => {
-                                    if (err) console.error(err)
-                                    else console.log('pow!')
+                                    this.copyAction( sourcePath, targetPath );
                                 });
                             }else{
+                                this.copyAction( sourcePath, targetPath );
                             }
                         });
 
@@ -101,6 +103,9 @@ export default class ProjectExample extends Project {
                 });
             });
         });
+    }
+
+    copyAction( source, target ){
     }
 
     calcMatchFile(){

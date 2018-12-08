@@ -112,18 +112,22 @@ var ProjectExample = function (_Project) {
                                 mkdir = _path2.default.resolve(mkdir, '..');
                             }
 
-                            console.log('       ', sourcePath);
-                            console.log(targetPath);
-                            console.log(mkdir);
+                            /*
+                            console.log( '       ', sourcePath );
+                            console.log( targetPath );
+                            console.log( mkdir );
+                            */
 
                             _fs2.default.exists(mkdir, function (exists) {
-                                console.log(mkdir, exists);
+                                //console.log( mkdir, exists );
 
                                 if (!exists) {
                                     mkdirp(mkdir, function (err) {
-                                        if (err) console.error(err);else console.log('pow!');
+                                        _this2.copyAction(sourcePath, targetPath);
                                     });
-                                } else {}
+                                } else {
+                                    _this2.copyAction(sourcePath, targetPath);
+                                }
                             });
 
                             return;
@@ -136,6 +140,9 @@ var ProjectExample = function (_Project) {
                 });
             });
         }
+    }, {
+        key: "copyAction",
+        value: function copyAction(source, target) {}
     }, {
         key: "calcMatchFile",
         value: function calcMatchFile() {
