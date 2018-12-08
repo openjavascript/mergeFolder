@@ -24,7 +24,7 @@ var Q_SUBFOLDER_LEVEL = exports.Q_SUBFOLDER_LEVEL = [{
     "name": "subfolder_level",
     "type": "input",
     "message": "请输入要合并文件夹的层次，无需更改请按回车",
-    "default": 1
+    "default": 2
 }];
 
 var Q_SHOW_LOG = exports.Q_SHOW_LOG = [{
@@ -39,7 +39,7 @@ var Q_TARGER_FOLDER = exports.Q_TARGER_FOLDER = [{
     "name": "target_folder",
     "type": "input",
     "message": "请输入要复制到那个文件夹",
-    "default": "./map_tiles/map_tiles"
+    "default": "./map_tiles/default"
 }];
 
 var Q_RE_PATTERN = exports.Q_RE_PATTERN = [{
@@ -62,7 +62,7 @@ var Q_CONFIRM = exports.Q_CONFIRM = [{
     "type": "list",
     "message": "开始合并文件？",
     "choices": ['yes', 'no'],
-    "default": 'no'
+    "default": 'yes'
 }];
 
 /*

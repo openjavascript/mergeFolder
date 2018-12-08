@@ -26,7 +26,7 @@ export const Q_SUBFOLDER_LEVEL = [
         "name": "subfolder_level"
         , "type": "input"
         , "message": "请输入要合并文件夹的层次，无需更改请按回车"
-        , "default": 1
+        , "default": 2
     }
 ];
 
@@ -45,7 +45,7 @@ export const Q_TARGER_FOLDER = [
         "name": "target_folder"
         , "type": "input"
         , "message": "请输入要复制到那个文件夹"
-        , "default": "./map_tiles/map_tiles"
+        , "default": "./map_tiles/default"
     }
 ];
 
@@ -75,7 +75,7 @@ export const Q_CONFIRM = [
         , "type": "list"
         , "message": "开始合并文件？"
         , "choices": [ 'yes', 'no' ]
-        , "default": 'no'
+        , "default": 'yes'
     }
 ];
 

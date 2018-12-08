@@ -42,6 +42,8 @@ var warning = _chalk2.default.keyword('orange');
 var success = _chalk2.default.greenBright;
 var info = _chalk2.default.bold.blue;
 
+var Glob = require("glob").Glob;
+
 var ProjectExample = function (_Project) {
     _inherits(ProjectExample, _Project);
 
@@ -56,16 +58,118 @@ var ProjectExample = function (_Project) {
         value: function init() {
             //console.log( 'ProjectExample', Date.now() )
             this.initEnv();
-            this.initProgress();
+            //this.initProgress();
+            this.calcMatchFile();
         }
     }, {
         key: "initEnv",
-        value: function initEnv() {}
+        value: function initEnv() {
+            this.cmd = _path2.default.resolve(this.app.copyPath + "/" + this.app.re_pattern);
+
+            this.processPath = _path2.default.resolve(this.app.copyPath);
+        }
+    }, {
+        key: "traverse",
+        value: function traverse(dir) {
+            var _this2 = this;
+
+            var cur = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+            var level = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
+
+            if (level > this.app.subfolder_level) return;
+
+            _fs2.default.readdir(dir, function (err, list) {
+                list.map(function (itemName) {
+                    var tmpPath = _path2.default.resolve(dir, itemName);
+
+                    _fs2.default.stat(tmpPath, function (err, stats) {
+
+                        var tmpCur = cur.slice();
+                        tmpCur.push(itemName);
+
+                        if (level === _this2.app.subfolder_level) {
+
+                            console.log(
+                            //tmpPath
+                            tmpCur, stats.isDirectory(), stats.isFile(), stats.isSymbolicLink());
+
+                            var targetPath = tmpCur.slice();
+                            targetPath.unshift(_this2.app.targetPath);
+                            console.log(targetPath);
+
+                            return;
+                        }
+
+                        if (stats.isDirectory()) {
+                            _this2.traverse(tmpPath, tmpCur, level + 1);
+                        }
+                    });
+                });
+            });
+        }
+    }, {
+        key: "calcMatchFile",
+        value: function calcMatchFile() {
+            //this.files = [];
+            this.count = 0;
+            this.processFile = 0;
+
+            var p = this;
+
+            //this.traverse( this.processPath, [ this.app.subfolder ] );
+            this.traverse(this.processPath, []);
+
+            //console.log( this.cmd );
+            //return;
+            /*
+            */
+
+            //console.time( 'calc-time' );
+            this.calcMs = Date.now();
+
+            /*this.matcher = new Glob( this.cmd, {
+                //symlinks: this.app.re_pattern
+            });*/
+
+            // /home/suches/udocs/git/mergefolder/testdata/map_tiles_develop/subfolder/building/building/zhuhai/15/26726/14294.pbf
+
+            //return;
+
+            /*this.matcher.on( 'match', ( filePath ) => {
+                //this.files.push( filePath );
+                this.count++;
+                //console.log( this.count );
+                //console.timeLog( 'calc-time', this.count );
+                //console.log( Date.now(), filePath )
+                  this.calcCur = ( Date.now() - this.calcMs ) / 1000;
+                  console.log( '匹配的文件数量:', this.count, '已处理的文件数量:', this.processFile, '耗时:', this.calcCur, '秒' );
+                console.log( filePath );
+            });
+              this.matcher.on( 'end', ( filePath )=>{
+                //console.log( Date.now(), filePath )
+                //console.log( Date.now(), 'ended' )
+                //console.log( this.files );
+                //console.timeEnd( 'calc-time' );
+                  this.files = filePath;
+                  console.log( '           this.cmd', path.resolve( this.cmd ) );
+                console.log( '  this.app.copyPath', path.resolve( this.app.copyPath ) );
+                console.log( 'this.app.targetPath', path.resolve( this.app.targetPath ) );
+                  this.calcMsTotal = Date.now() - this.calcMs;
+            });
+              this.matcher.on( 'error', ( filePath )=>{
+                //console.log( Date.now(), filePath )
+                //console.log( Date.now(), 'error' )
+            });
+              this.matcher.on( 'abort', ( filePath )=>{
+                //console.log( Date.now(), filePath )
+                //console.log( Date.now(), 'abort' )
+            });*/
+        }
     }, {
         key: "initProgress",
         value: function initProgress() {
             this.bar = new _progress.Bar({
-                format: 'CLI Progress |' + _colors.cyan('{bar}') + '| {percentage}% || {value}/{total} Chunks || Speed: {speed}',
+                format: '计算文件数量 |' + _colors.cyan('{bar}') + '| {percentage}% || {value}/{total} Chunks || Speed: {speed}',
                 barCompleteChar: "\u2588",
                 barIncompleteChar: "\u2591",
                 hideCursor: true

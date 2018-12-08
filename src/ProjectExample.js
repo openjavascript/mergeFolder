@@ -13,6 +13,8 @@ const warning = chalk.keyword('orange');
 const success = chalk.greenBright;
 const info = chalk.bold.blue;
 
+const Glob = require("glob").Glob;
+
 import Project from './Project.js';
 
 export default class ProjectExample extends Project {
@@ -23,15 +25,121 @@ export default class ProjectExample extends Project {
     init() {
         //console.log( 'ProjectExample', Date.now() )
         this.initEnv();
-        this.initProgress();
+        //this.initProgress();
+        this.calcMatchFile();
     }
 
     initEnv(){
+        this.cmd =  path.resolve( `${this.app.copyPath}/${this.app.re_pattern}` )
+
+        this.processPath = path.resolve( this.app.copyPath );
     }
 
+    traverse( dir, cur = [], level = 1 ){
+        if( level > this.app.subfolder_level ) return;
+
+        fs.readdir( dir, ( err, list ) => {
+            list.map( (itemName)=>{
+                let tmpPath = path.resolve( dir, itemName );
+                
+                fs.stat( tmpPath, ( err, stats ) => {
+
+                    let tmpCur = cur.slice();
+                    tmpCur.push( itemName );
+
+                    if( level === this.app.subfolder_level ){
+
+                        console.log( 
+                            //tmpPath
+                            tmpCur
+                            , stats.isDirectory()
+                            , stats.isFile()
+                            , stats.isSymbolicLink()
+                        );
+
+                        let targetPath = tmpCur.slice();
+                        targetPath.unshift( this.app.targetPath );
+                        console.log( targetPath );
+
+                        return;
+                    }
+
+                    if( stats.isDirectory() ){
+                        this.traverse( tmpPath, tmpCur, level + 1 );
+                    }
+                });
+            });
+        });
+    }
+
+    calcMatchFile(){
+        //this.files = [];
+        this.count = 0;
+        this.processFile = 0;
+
+        let p = this;
+
+        //this.traverse( this.processPath, [ this.app.subfolder ] );
+        this.traverse( this.processPath, [] );
+
+        //console.log( this.cmd );
+        //return;
+        /*
+        */
+
+        //console.time( 'calc-time' );
+        this.calcMs = Date.now();
+
+        /*this.matcher = new Glob( this.cmd, {
+            //symlinks: this.app.re_pattern
+        });*/
+
+        // /home/suches/udocs/git/mergefolder/testdata/map_tiles_develop/subfolder/building/building/zhuhai/15/26726/14294.pbf
+
+        //return;
+
+        /*this.matcher.on( 'match', ( filePath ) => {
+            //this.files.push( filePath );
+            this.count++;
+            //console.log( this.count );
+            //console.timeLog( 'calc-time', this.count );
+            //console.log( Date.now(), filePath )
+
+            this.calcCur = ( Date.now() - this.calcMs ) / 1000;
+
+            console.log( '匹配的文件数量:', this.count, '已处理的文件数量:', this.processFile, '耗时:', this.calcCur, '秒' );
+            console.log( filePath );
+        });
+
+        this.matcher.on( 'end', ( filePath )=>{
+            //console.log( Date.now(), filePath )
+            //console.log( Date.now(), 'ended' )
+            //console.log( this.files );
+            //console.timeEnd( 'calc-time' );
+
+            this.files = filePath;
+
+            console.log( '           this.cmd', path.resolve( this.cmd ) );
+            console.log( '  this.app.copyPath', path.resolve( this.app.copyPath ) );
+            console.log( 'this.app.targetPath', path.resolve( this.app.targetPath ) );
+
+            this.calcMsTotal = Date.now() - this.calcMs;
+        });
+
+        this.matcher.on( 'error', ( filePath )=>{
+            //console.log( Date.now(), filePath )
+            //console.log( Date.now(), 'error' )
+        });
+
+        this.matcher.on( 'abort', ( filePath )=>{
+            //console.log( Date.now(), filePath )
+            //console.log( Date.now(), 'abort' )
+        });*/
+
+    }
     initProgress(){
         this.bar = new _progress.Bar({
-            format: 'CLI Progress |' + _colors.cyan('{bar}') + '| {percentage}% || {value}/{total} Chunks || Speed: {speed}'
+            format: '计算文件数量 |' + _colors.cyan('{bar}') + '| {percentage}% || {value}/{total} Chunks || Speed: {speed}'
             , barCompleteChar: '\u2588'
             , barIncompleteChar: '\u2591'
             , hideCursor: true

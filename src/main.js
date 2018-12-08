@@ -47,7 +47,8 @@ bar.update(5, {
 
 bar.update(50, {
     speed: '125'
-});*/
+});
+*/
 
 
 //bar.stop();
