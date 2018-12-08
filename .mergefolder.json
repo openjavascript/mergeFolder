@@ -1,6 +1,6 @@
 {
-    "sourceDir": "./subfolder"
-    , "outputDir": "./map_tiles/default"
+    "sourceDir": "./testdata/map_tiles_develop/subfolder"
+    , "outputDir": "./testdata/map_tiles_develop/map_tiles/default"
     , "mergeLevel": 2
     , "autostart": true
 }
