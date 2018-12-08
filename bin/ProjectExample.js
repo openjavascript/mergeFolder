@@ -34,6 +34,9 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var _progress = require('cli-progress');
+var _colors = require('colors');
+
 var error = _chalk2.default.bold.red;
 var warning = _chalk2.default.keyword('orange');
 var success = _chalk2.default.greenBright;
@@ -52,7 +55,33 @@ var ProjectExample = function (_Project) {
         key: "init",
         value: function init() {
             //console.log( 'ProjectExample', Date.now() )
-            this.initMethod();
+            this.initEnv();
+            this.initProgress();
+        }
+    }, {
+        key: "initEnv",
+        value: function initEnv() {}
+    }, {
+        key: "initProgress",
+        value: function initProgress() {
+            this.bar = new _progress.Bar({
+                format: 'CLI Progress |' + _colors.cyan('{bar}') + '| {percentage}% || {value}/{total} Chunks || Speed: {speed}',
+                barCompleteChar: "\u2588",
+                barIncompleteChar: "\u2591",
+                hideCursor: true
+            });
+
+            this.bar.start(200, 0, {
+                speed: "N/A"
+            });
+
+            this.bar.update(5, {
+                speed: '125'
+            });
+
+            this.bar.update(50, {
+                speed: '125'
+            });
         }
     }]);
 

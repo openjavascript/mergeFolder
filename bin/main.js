@@ -27,8 +27,9 @@ require('babel-core/register');
 var init = require('./app').init;
 init(APP_ROOT, PROJECT_ROOT, packJSON);
 
-/*const _progress = require('cli-progress');
-var _colors = require('colors');
+/*
+const _progress = require('cli-progress');
+const _colors = require('colors');
 
 const bar = new _progress.Bar({
     format: 'CLI Progress |' + _colors.cyan('{bar}') + '| {percentage}% || {value}/{total} Chunks || Speed: {speed}'
