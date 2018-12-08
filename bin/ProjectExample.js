@@ -120,7 +120,9 @@ var ProjectExample = function (_Project) {
                                 console.log(mkdir, exists);
 
                                 if (!exists) {
-                                    mkdirp(mkdir, function (err) {});
+                                    mkdirp(mkdir, function (err) {
+                                        if (err) console.error(err);else console.log('pow!');
+                                    });
                                 } else {}
                             });
 

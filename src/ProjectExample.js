@@ -85,6 +85,8 @@ export default class ProjectExample extends Project {
 
                             if( !exists ){
                                 mkdirp( mkdir, ( err ) => {
+                                    if (err) console.error(err)
+                                    else console.log('pow!')
                                 });
                             }else{
                             }
