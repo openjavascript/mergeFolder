@@ -6,9 +6,9 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _fs = require("fs");
+var _fsExtra = require("fs-extra");
 
-var _fs2 = _interopRequireDefault(_fs);
+var _fsExtra2 = _interopRequireDefault(_fsExtra);
 
 var _path = require("path");
 
@@ -79,11 +79,11 @@ var ProjectExample = function (_Project) {
 
             if (level > this.app.subfolder_level) return;
 
-            _fs2.default.readdir(dir, function (err, list) {
+            _fsExtra2.default.readdir(dir, function (err, list) {
                 list.map(function (itemName) {
                     var tmpPath = _path2.default.resolve(dir, itemName);
 
-                    _fs2.default.stat(tmpPath, function (err, stats) {
+                    _fsExtra2.default.stat(tmpPath, function (err, stats) {
 
                         var tmpCur = cur.slice();
                         tmpCur.push(itemName);
@@ -118,7 +118,7 @@ var ProjectExample = function (_Project) {
                             console.log( mkdir );
                             */
 
-                            _fs2.default.exists(mkdir, function (exists) {
+                            _fsExtra2.default.exists(mkdir, function (exists) {
                                 //console.log( mkdir, exists );
 
                                 if (!exists) {
@@ -142,7 +142,19 @@ var ProjectExample = function (_Project) {
         }
     }, {
         key: "copyAction",
-        value: function copyAction(source, target) {}
+        value: function copyAction(source, target) {
+            //source = path.resolve( [ source, '*' ].join('/') )
+            /*
+            console.log( '\ncopy action' );
+            console.log( 'source', source );
+            console.log( 'target', target );
+            */
+
+            _fsExtra2.default.copy(source, target, function (err) {
+                console.log(target);
+                //console.log( err, target );
+            });
+        }
     }, {
         key: "calcMatchFile",
         value: function calcMatchFile() {

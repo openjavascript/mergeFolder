@@ -1,5 +1,5 @@
 
-import fs from "fs";
+import fs from "fs-extra";
 import path from "path";
 
 import chalk from 'chalk';
@@ -106,6 +106,17 @@ export default class ProjectExample extends Project {
     }
 
     copyAction( source, target ){
+        //source = path.resolve( [ source, '*' ].join('/') )
+        /*
+        console.log( '\ncopy action' );
+        console.log( 'source', source );
+        console.log( 'target', target );
+        */
+
+        fs.copy( source, target, ( err ) => {
+            console.log( target );
+            //console.log( err, target );
+        });
     }
 
     calcMatchFile(){

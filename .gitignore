@@ -1,5 +1,5 @@
 node_modules
 .svn
 yarn.lock
-./testdata/map_tiles/map_tiles
+./testdata/map_tiles
 ./testdata/map_tiles_develop/map_tiles
