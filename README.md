@@ -19,9 +19,9 @@
 
 ## mergefolder.json 说明
 	{
-		"sourceDir": "./testdata/map_tiles_develop/subfolder"			//要合并文件的源目录
+		"sourceDir": "./testdata/map_tiles_develop/subfolder" //要合并文件的源目录
 		, "outputDir": "./testdata/map_tiles_develop/map_tiles/default" //合并文件的目标目录
-		, "mergeLevel": 2												//在那一层开始合并文件
-		, "autostart": false											//是否自动开始
+		, "mergeLevel": 2 //在那一层开始合并文件
+		, "autostart": false //是否自动开始
 	}
 
