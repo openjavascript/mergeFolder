@@ -15,7 +15,7 @@
     mergefolder /var/www/your_project_root
 
 ## 参数配置文件 mergefolder.json
-	如果运行命令的目录有 mergefolder.json，工具会尝试读取JSON的配置参数，自己填充输入参数
+	如果运行命令的目录有 mergefolder.json，工具会尝试读取JSON的配置参数，自动填充输入参数
 
 ## mergefolder.json 说明
 	{
