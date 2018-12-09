@@ -254,10 +254,12 @@ var App = function () {
             console.log(info("github: " + this.packJSON.repository.url));
 
             console.log();
-            console.log(info('使用:'));
-            console.log(info('     方法1: 使用说明'));
+            console.log('使用:');
+            console.log('     方法1: 切换到项目根目录, 然后执行命令 mergefolder');
+            console.log(info('         cd projectRoot && mergefolder '));
             console.log();
-            console.log(info('     方法2: 使用说明'));
+            console.log('     方法2: 使用 mergefolder 路径, 支持相对路径');
+            console.log(info('         mergefolder /var/www/your_project_root '));
             console.log();
 
             /*
