@@ -97,77 +97,58 @@ var ProjectExample = function (_Project) {
 
             if (level > this.app.subfolder_level) return;
 
-            _fsExtra2.default.readdir(dir, function (err, list) {
-                list.map(function (itemName) {
-                    var tmpPath = _path2.default.resolve(dir, itemName);
+            var list = _fsExtra2.default.readdirSync(dir);
+            list.map(function (itemName) {
+                var tmpPath = _path2.default.resolve(dir, itemName);
 
-                    _fsExtra2.default.stat(tmpPath, function (err, stats) {
+                var stats = _fsExtra2.default.statSync(tmpPath);
 
-                        var tmpCur = cur.slice();
-                        tmpCur.push(itemName);
+                var tmpCur = cur.slice();
+                tmpCur.push(itemName);
 
-                        if (level === _this2.app.subfolder_level) {
-                            /*
-                            console.log( 
-                                //tmpPath
-                                tmpCur
-                                , stats.isDirectory()
-                                , stats.isFile()
-                                , stats.isSymbolicLink()
-                            );
-                            */
+                if (level === _this2.app.subfolder_level) {
+                    /*
+                    console.log( 
+                        //tmpPath
+                        tmpCur
+                        , stats.isDirectory()
+                        , stats.isFile()
+                        , stats.isSymbolicLink()
+                    );
+                    */
 
-                            var sourcePath = tmpCur.slice();
-                            sourcePath.unshift(_this2.app.sourcePath);
-                            sourcePath = _path2.default.resolve(sourcePath.join('/'));
+                    var sourcePath = tmpCur.slice();
+                    sourcePath.unshift(_this2.app.sourcePath);
+                    sourcePath = _path2.default.resolve(sourcePath.join('/'));
 
-                            var targetPath = tmpCur.slice();
-                            targetPath.unshift(_this2.app.targetPath);
-                            if (stats.isDirectory()) {
-                                targetPath.pop();
-                            }
+                    var targetPath = tmpCur.slice();
+                    targetPath.unshift(_this2.app.targetPath);
+                    if (stats.isDirectory()) {
+                        targetPath.pop();
+                    }
 
-                            targetPath = _path2.default.resolve(targetPath.join('/'));
+                    targetPath = _path2.default.resolve(targetPath.join('/'));
 
-                            var mkdir = targetPath;
+                    var mkdir = targetPath;
 
-                            if (stats.isFile()) {
-                                mkdir = _path2.default.resolve(mkdir, '..');
-                            }
+                    if (stats.isFile()) {
+                        mkdir = _path2.default.resolve(mkdir, '..');
+                    }
 
-                            /*
-                            console.log( '       ', sourcePath );
-                            console.log( targetPath );
-                            console.log( mkdir );
-                            */
+                    _fsExtra2.default.mkdirpSync(mkdir);
+                    _this2.copyAction(sourcePath, targetPath);
 
-                            _fsExtra2.default.exists(mkdir, function (exists) {
-                                //console.log( mkdir, exists );
+                    return;
+                }
 
-                                if (!exists) {
-                                    mkdirp(mkdir, function (err) {
-                                        _this2.copyAction(sourcePath, targetPath);
-                                    });
-                                } else {
-                                    _this2.copyAction(sourcePath, targetPath);
-                                }
-                            });
-
-                            return;
-                        }
-
-                        if (stats.isDirectory()) {
-                            _this2.traverse(tmpPath, tmpCur, level + 1);
-                        }
-                    });
-                });
+                if (stats.isDirectory()) {
+                    _this2.traverse(tmpPath, tmpCur, level + 1);
+                }
             });
         }
     }, {
         key: "copyAction",
         value: function copyAction(source, target) {
-            var _this3 = this;
-
             //source = path.resolve( [ source, '*' ].join('/') )
             /*
             console.log( '\ncopy action' );
@@ -176,16 +157,21 @@ var ProjectExample = function (_Project) {
             */
 
             var curCopyMs = Date.now();
-            _fsExtra2.default.copy(source, target, function (err) {
-                var passTime = ((Date.now() - _this3.copyMs) / 1000).toFixed(3);
-                passTime += '秒';
 
-                var curPassTime = ((Date.now() - curCopyMs) / 1000).toFixed(3);
-                curPassTime += '秒';
+            console.log(CONST.SPACE + 'coping...');
+            console.log(CONST.SPACE + '源 路 径:', info(source));
+            console.log(CONST.SPACE + '目标路径:', info(target));
 
-                console.log(CONST.SPACE + '本次耗时:', curPassTime, '总耗时:', passTime, target);
-                //console.log( err, target );
-            });
+            var r = _fsExtra2.default.copySync(source, target, { overwrite: true });
+
+            var passTime = ((Date.now() - this.copyMs) / 1000).toFixed(3);
+            passTime += '秒';
+
+            var curPassTime = ((Date.now() - curCopyMs) / 1000).toFixed(3);
+            curPassTime += '秒';
+
+            console.log(info(CONST.SPACE + '本次耗时:', curPassTime, '总耗时:', passTime));
+            console.log();
         }
     }]);
 

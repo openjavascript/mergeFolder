@@ -52,70 +52,53 @@ export default class ProjectExample extends Project {
     traverse( dir, cur = [], level = 1 ){
         if( level > this.app.subfolder_level ) return;
 
-        fs.readdir( dir, ( err, list ) => {
-            list.map( (itemName)=>{
-                let tmpPath = path.resolve( dir, itemName );
-                
-                fs.stat( tmpPath, ( err, stats ) => {
+        let list = fs.readdirSync( dir );
+        list.map( (itemName)=>{
+            let tmpPath = path.resolve( dir, itemName );
+            
+            let stats = fs.statSync( tmpPath );
 
-                    let tmpCur = cur.slice();
-                    tmpCur.push( itemName );
+            let tmpCur = cur.slice();
+            tmpCur.push( itemName );
 
-                    if( level === this.app.subfolder_level ){
-                        /*
-                        console.log( 
-                            //tmpPath
-                            tmpCur
-                            , stats.isDirectory()
-                            , stats.isFile()
-                            , stats.isSymbolicLink()
-                        );
-                        */
+            if( level === this.app.subfolder_level ){
+                /*
+                console.log( 
+                    //tmpPath
+                    tmpCur
+                    , stats.isDirectory()
+                    , stats.isFile()
+                    , stats.isSymbolicLink()
+                );
+                */
 
-                        let sourcePath = tmpCur.slice();
-                        sourcePath.unshift( this.app.sourcePath );
-                        sourcePath = path.resolve( sourcePath.join('/') );
+                let sourcePath = tmpCur.slice();
+                sourcePath.unshift( this.app.sourcePath );
+                sourcePath = path.resolve( sourcePath.join('/') );
 
-                        let targetPath = tmpCur.slice();
-                        targetPath.unshift( this.app.targetPath );
-                        if( stats.isDirectory() ){
-                            targetPath.pop();
-                        }
+                let targetPath = tmpCur.slice();
+                targetPath.unshift( this.app.targetPath );
+                if( stats.isDirectory() ){
+                    targetPath.pop();
+                }
 
-                        targetPath = path.resolve( targetPath.join('/') );
+                targetPath = path.resolve( targetPath.join('/') );
 
-                        let mkdir = targetPath;
+                let mkdir = targetPath;
 
-                        if( stats.isFile() ){
-                            mkdir = path.resolve( mkdir, '..' );
-                        }
+                if( stats.isFile() ){
+                    mkdir = path.resolve( mkdir, '..' );
+                }
 
-                        /*
-                        console.log( '       ', sourcePath );
-                        console.log( targetPath );
-                        console.log( mkdir );
-                        */
+                fs.mkdirpSync( mkdir );
+                this.copyAction( sourcePath, targetPath );
 
-                        fs.exists( mkdir, ( exists ) => {
-                            //console.log( mkdir, exists );
+                return;
+            }
 
-                            if( !exists ){
-                                mkdirp( mkdir, ( err ) => {
-                                    this.copyAction( sourcePath, targetPath );
-                                });
-                            }else{
-                                this.copyAction( sourcePath, targetPath );
-                            }
-                        });
-
-                        return;
-                    }
-
-                    if( stats.isDirectory() ){
-                        this.traverse( tmpPath, tmpCur, level + 1 );
-                    }
-                });
-            });
+            if( stats.isDirectory() ){
+                this.traverse( tmpPath, tmpCur, level + 1 );
+            }
         });
     }
 
@@ -128,15 +111,20 @@ export default class ProjectExample extends Project {
         */
 
         let curCopyMs = Date.now();
-        fs.copy( source, target, ( err ) => {
-            let passTime = ( ( Date.now() - this.copyMs ) / 1000 ).toFixed(3);
-                passTime += '秒';
 
-            let curPassTime = ( ( Date.now() - curCopyMs ) / 1000 ).toFixed(3);
-                curPassTime += '秒';
+        console.log( CONST.SPACE + 'coping...' );
+        console.log( CONST.SPACE + '源 路 径:', info(source) );
+        console.log( CONST.SPACE + '目标路径:', info(target) );
 
-            console.log( CONST.SPACE + '本次耗时:', curPassTime, '总耗时:', passTime, target );
-            //console.log( err, target );
-        });
+        let r = fs.copySync( source, target, {overwrite: true} );
+
+        let passTime = ( ( Date.now() - this.copyMs ) / 1000 ).toFixed(3);
+            passTime += '秒';
+
+        let curPassTime = ( ( Date.now() - curCopyMs ) / 1000 ).toFixed(3);
+            curPassTime += '秒';
+
+        console.log( info( CONST.SPACE + '本次耗时:', curPassTime, '总耗时:', passTime ) );
+        console.log();
     }
 }
