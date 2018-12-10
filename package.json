@@ -1,6 +1,6 @@
 {
   "name": "mergefolder",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "merge sub folder into new folder",
   "main": "src/main.js",
   "bin": {
